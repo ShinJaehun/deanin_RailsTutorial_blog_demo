@@ -1,13 +1,19 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[ show index ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    # 이 내용을 모두 포함하는 표현!
+#    views = @post.views + 1
+#    @post.views = views
+#    @post.save
+    @post.update(views: @post.views + 1)
   end
 
   # GET /posts/new
@@ -22,6 +28,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     respond_to do |format|
       if @post.save
