@@ -76,6 +76,8 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :body)
+      # params.require(:post).permit(:title, :body, :image)
+      # action_text에서 사용할 때는 따로 지정할 필요가 없는 듯!
     end
 
     def mark_notifications_as_read
