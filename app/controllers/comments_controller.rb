@@ -39,6 +39,7 @@ class CommentsController < ApplicationController
   private
 
   def set_post
+    # @post = Post.friendly.find(params[:post_id])
     @post = Post.find(params[:post_id])
   end
 
